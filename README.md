@@ -11,25 +11,6 @@ Este projeto foi desenvolvido como parte da Prova de Aptidão Profissional (PAP)
 - Sistema de recuperação de palavra-passe
 - Interface web responsiva
 
-## 🗂 Estrutura do Projeto
-
-PAPsamuelPI6/\n
-├── public/                # Ficheiros acessíveis ao utilizador (HTML, CSS, JS, imagens)\n
-│   ├── index.html
-│   ├── css/\n
-│   ├── js/\n
-│   ├── images/\n
-│   └── webfonts/\n
-├── src/                   # Código backend em PHP\n
-│   └── php/\n
-│       ├── db.php\n
-│       ├── login.php\n
-│       ├── register.php\n
-│       └── ...
-├── docs/                  # Documentação e ficheiros auxiliares\n
-│   └── objectives.md\n
-├── README.md              # Este ficheiro\n
-
 ## ⚙️ Tecnologias Usadas
 
 - HTML5, CSS3, JavaScript
