@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Escolha seu Objetivo</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="objetivos-container">
+        <h2>Selecione seu Objetivo</h2>
+        <form id="objetivos-form">
+            <div class="form-group">
+                <label for="objetivo">Escolha um Objetivo</label>
+                <select name="objetivo" id="objetivo" required>
+                    <option value="emagrecimento">Emagrecimento</option>
+                    <option value="musculacao">Musculação</option>
+                    <option value="aumento_de_resistencia">Aumento de Resistência</option>
+                    <option value="saude_geral">Saúde Geral</option>
+                </select>
+            </div>
+            <button type="submit" class="btn-orange">Selecionar Objetivo</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("objetivos-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            
+            const objetivoSelecionado = document.getElementById("objetivo").value;
+
+            // Armazena o objetivo escolhido em um local como sessionStorage
+            sessionStorage.setItem('objetivo', objetivoSelecionado);
+
+            // Redireciona para o formulário de treino, passando o objetivo
+            window.location.href = 'plano_treino.html';
+        });
+    </script>
+
+</body>
+</html>

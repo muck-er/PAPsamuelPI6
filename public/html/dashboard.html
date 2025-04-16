@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="assets/css/style-starter.css"> <!-- Seu arquivo de estilo -->
+</head>
+<body>
+
+    <div class="dashboard-container">
+        <h2>Bem-vindo, <?php echo htmlspecialchars($user['nome']); ?>!</h2>
+
+        <!-- Informações do usuário -->
+        <div class="user-info">
+            <p><strong>Nome:</strong> <?php echo htmlspecialchars($user['nome']); ?></p>
+            <p><strong>Idade:</strong> <?php echo htmlspecialchars($user['idade']); ?> anos</p>
+            <p><strong>Peso:</strong> <?php echo htmlspecialchars($user['peso']); ?> kg</p>
+            <p><strong>Altura:</strong> <?php echo htmlspecialchars($user['altura']); ?> cm</p>
+            <p><strong>Email:</strong> <?php echo htmlspecialchars($user['email']); ?></p>
+        </div>
+
+        <!-- Objetivo de treino -->
+        <div class="goal-info">
+            <h3>Objetivo de Treino:</h3>
+            <p><strong>Objetivo:</strong> <?php echo htmlspecialchars($user['objetivo']); ?></p>
+        </div>
+
+        <!-- Plano de treino -->
+        <div class="plan-container">
+            <h3>Plano de Treino</h3>
+            <p><strong>Plano de treino para o seu objetivo: "<?php echo htmlspecialchars($user['objetivo']); ?>"</strong></p>
+            <ul>
+                <li>Treinos cardio 3x por semana</li>
+                <li>Treino de força 2x por semana</li>
+                <li>Alongamento diário para recuperação</li>
+            </ul>
+        </div>
+
+        <!-- Gráficos de progresso -->
+        <div class="graph-container">
+            <h3>Progresso</h3>
+            <p>Você pode adicionar gráficos para mostrar o progresso do seu treino (por exemplo, evolução de peso, ganho de músculo, etc.).</p>
+            <canvas id="progressChart" width="400" height="200"></canvas>
+        </div>
+
+        <!-- Botão para editar objetivos -->
+        <div class="edit-goal">
+            <a href="definir_objetivos.php">Alterar Objetivos de Treino</a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Exemplo de gráfico usando Chart.js
+        var ctx = document.getElementById('progressChart').getContext('2d');
+        var progressChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Semana 1', 'Semana 2', 'Semana 3', 'Semana 4', 'Semana 5'], // Marque as semanas
+                datasets: [{
+                    label: 'Progresso',
+                    data: [65, 66, 68, 70, 72], // Dados do progresso do usuário (por exemplo, peso)
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1,
+                    fill: false
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>
