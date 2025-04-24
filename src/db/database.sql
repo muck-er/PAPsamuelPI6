@@ -28,8 +28,3 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
-DELETE FROM `users`;
-INSERT INTO `users` (`id`, `nome`, `email`, `password`, `idade`, `peso`, `altura`, `contato`, `token`) VALUES
-	(6, 'test', 'test@test.com', '$2y$10$nUMBHGqyCU2U1sX3Cm3uAuJXhnEivwlUuT/JT5A.KZHFE3E24TUEK', 12, 123, 155, '123123123', NULL),
-	(7, 'test', 'test@test.pt', '$2y$10$8VNICPrYJOtTeKQkWDlOzORwGhSv9TsP18hx95qKM1aKh9ZcgSoVS', 17, 60, 170, '123123123', NULL);
