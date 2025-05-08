@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulário de Dados</title>
+  <link rel="icon" href="/public/images/OthrysFit.ico" type="image/x-icon" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(160deg, #ffa07a, #ff7f50);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      animation: fadeIn 1s ease-in-out;
+    }
+    
+    .form-container {
+      background: white;
+      padding: 2rem 2.5rem;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      width: 100%;
+      max-width: 400px;
+      animation: slideUp 0.8s ease;
+    }
+    
+    h2 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: #333;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: #444;
+    }
+    
+    input,
+    select {
+      width: 100%;
+      padding: 0.75rem;
+      margin-bottom: 1.2rem;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      transition: border-color 0.3s ease;
+      font-family: inherit;
+      background-color: white;
+    }
+    
+    input:focus,
+    select:focus {
+      border-color: #ff5722;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(255, 132, 0, 0.2);
+    }
+    
+    button {
+      width: 100%;
+      padding: 0.75rem;
+      background: #ff7f50;
+      border: none;
+      color: white;
+      font-weight: 600;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    
+    button:hover {
+      background: #ff5722;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+  </style>
+</head>
+<body>
+
+  <div class="form-container">
+    <h2>Dados de Utilizador</h2>
+    <form id="userForm">
+      <label for="nome">Nome</label>
+      <input type="text" id="nome" name="nome" required>
+
+      <label for="peso">Peso (kg)</label>
+      <input type="number" id="peso" name="peso" required step="0.1" min="30" max="300">
+
+      <label for="altura">Altura (cm)</label>
+      <input type="number" id="altura" name="altura" required min="100" max="250">
+
+      <label for="idade">Idade</label>
+      <input type="number" id="idade" name="idade" required min="10" max="100">
+
+      <label for="contacto">Contacto</label>
+      <input type="tel" id="contacto" name="contacto" required pattern="\d{9,15}">
+
+      <label for="objetivo">Objetivo</label>
+      <select id="objetivo" name="objetivo"required>
+        <option value=" " disabled selected hidden>Defina o seu objetivo</option>
+        <option value="perda_peso">Perda de Peso</option>
+        <option value="ganho_massa">Ganho de Massa Muscular</option>
+      </select>
+      
+      <button type="submit">Enviar</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('userForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+    
+      const formData = new FormData(this);
+    
+      fetch('/src/php/save_user_data.php', {
+        method: 'POST',
+        body: formData
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.status === 'success') {
+          window.location.href = '/public/html/dashboard.html';
+        } else {
+          alert(data.message);
+        }
+      })
+      .catch(error => console.error('Erro ao enviar formulário:', error));
+    });
+    
+  </script>
+
+</body>
+</html>
