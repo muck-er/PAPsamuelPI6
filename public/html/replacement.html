@@ -1,97 +1,47 @@
 <!doctype html>
 <html lang="pt">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>OthrysFit - Recuperação de Senha</title>
-    <link rel="icon" href="/public/images/OthrysFit.ico" type="image/x-icon" />
-    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/style-starter.css">
-    <style>
-        body {
-            background: linear-gradient(160deg, #ffa07a, #ff7f50);
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Hind Siliguri', sans-serif;
-            flex-direction: column;
-        }
-
-        .navbar {
-            position: absolute;
-            top: 20px;
-            left: 40px;
-        }
-
-        .navbar .navbar-brand {
-            font-size: 32px; 
-            font-weight: 800;
-            text-decoration: none;
-            color: white;
-        }
-
-        .reset-container {
-            background: white;
-            padding: 50px;
-            border-radius: 15px;
-            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
-            text-align: center;
-            width: 100%;
-            max-width: 400px;
-        }
-
-        .form-group input {
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            width: 100%;
-            margin-bottom: 15px;
-            transition: 0.3s;
-        }
-
-        .btn-orange {
-            background: #ff7f50;
-            color: white;
-            padding: 12px;
-            border: none;
-            border-radius: 5px;
-            width: 100%;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        .btn-orange:hover {
-            background: #ff5722;
-        }
-
-        .back-to-login {
-            display: block;
-            margin-top: 10px;
-            color: #000;
-            text-decoration: none;
-        }
-
-        .back-to-login:hover {
-            color: #ff7f50;
-        }
-
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OthrysFit - Recuperação de Senha</title>
+  <link rel="icon" href="../images/OthrysFit.ico" type="image/x-icon" />
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Hind Siliguri', sans-serif;
+    }
+  </style>
 </head>
-<body>
-    <nav class="navbar">
-        <a class="navbar-brand" href="/index.html">Othrys<span class="sublog" style="color:#ff6700;">Fit.</span></a>
-    </nav>
-    <div class="reset-container">
-        <h2>Recuperação de Senha</h2>
-        <p>Insira seu email para redefinir sua senha.</p>
-        <form action="/src/php/reset_password.php" method="post">
-            <div class="form-group">
-                <input type="email" name="email" placeholder="Digite seu email" required>
-            </div>
-            <button type="submit" class="btn-orange">Enviar Link de Reposição</button>
-        </form>
-        <a href="/public/html/login.html" class="back-to-login">Voltar para o login</a>
-    </div>
+<body class="bg-gradient-to-br from-orange-300 to-orange-500 min-h-screen flex items-center justify-center px-4 relative">
+
+  <!-- Navbar -->
+  <nav class="absolute top-5 left-5 sm:left-10">
+    <a href="/index.html" class="text-white text-2xl sm:text-3xl font-extrabold">
+      Othrys<span class="text-orange-600">Fit.</span>
+    </a>
+  </nav>
+
+  <!-- Reset Form -->
+  <div class="bg-white p-8 sm:p-10 rounded-xl shadow-2xl w-full max-w-md text-center">
+    <h2 class="text-2xl font-semibold mb-2">Recuperação de Senha</h2>
+    <p class="text-gray-600 text-sm mb-6">Insira o seu email para redefinir a senha.</p>
+
+    <form action="../../src/php/reset_password.php" method="post" class="space-y-4 text-left">
+      <div>
+        <input type="email" name="email" placeholder="Digite seu email" required
+               class="w-full p-3 border-2 border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-orange-400 transition text-sm sm:text-base" />
+      </div>
+      <button type="submit"
+              class="w-full bg-orange-400 text-white py-3 rounded hover:bg-orange-600 transition duration-200 font-medium">
+        Enviar Link de Reposição
+      </button>
+    </form>
+
+    <a href="../html/login.html" class="block mt-4 text-sm text-gray-700 hover:text-orange-500 text-center">
+      Voltar para o login
+    </a>
+  </div>
+
 </body>
 </html>
