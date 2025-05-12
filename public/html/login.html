@@ -1,125 +1,71 @@
 <!doctype html>
 <html lang="pt">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>OthrysFit - Login</title>
-    <link rel="icon" href="/public/images/OthrysFit.ico" type="image/x-icon" />
-    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/public/css/style-starter.css">
-    <style>
-        body {
-            background: linear-gradient(160deg, #ffa07a, #ff7f50);
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Hind Siliguri', sans-serif;
-            flex-direction: column;
-            position: relative;
-        }
-        .navbar {
-            position: absolute;
-            top: 20px;
-            left: 40px;
-        }
-        .navbar .navbar-brand {
-            font-size: 32px; 
-            font-weight: 800;
-            text-decoration: none;
-            color: white;
-        }
-        .login-container {
-            background: white;
-            padding: 50px;
-            border-radius: 15px;
-            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
-            text-align: center;
-            width: 100%;
-            max-width: 400px;
-        }
-        .form-group input {
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            width: 100%;
-            margin-bottom: 15px;
-            transition: 0.3s;
-        }
-        .btn-orange {
-            background: #ff7f50;
-            color: white;
-            padding: 12px;
-            border: none;
-            border-radius: 5px;
-            width: 100%;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        .btn-orange:hover {
-            background: #ff5722;
-        }
-        .options {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 15px;
-        }
-        .options a {
-            color: #000;
-            text-decoration: none;
-            font-size: 14px;
-        }
-        .options a:hover {
-            color: #ff7f50;
-        }
-    </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OthrysFit - Login</title>
+  <link rel="icon" href="../images/OthrysFit.ico" type="image/x-icon" />
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Hind Siliguri', sans-serif;
+    }
+  </style>
 </head>
-<body>
-    <nav class="navbar">
-        <a class="navbar-brand" href="/index.html">Othrys<span class="sublog">Fit.</span></a>
-    </nav>
-    <div class="login-container">
-        <h2>Login</h2>
-        
-        <div id="erro-msg" style="display:none; margin-bottom: 15px; padding: 12px; background-color: #ffe0e0; color: #a00; border: 1px solid #f5c2c2; border-radius: 5px; font-size: 14px;"></div>
-        
-        <form action="/src/php/login.php" method="post">
-            <div class="form-group">
-                <input type="email" name="email" placeholder="Email" required>
-            </div>
-            <div class="form-group">
-                <input type="password" name="password" placeholder="Senha" required>
-            </div>
-            <button type="submit" class="btn-orange">Entrar</button>
-        </form>        
-        <div class="options">
-            <a href="/public/html/replacement.html">Esqueceu a senha?</a>
-            <a href="/public/html/register.html">Registrar-se</a>
-        </div>
-    </div>
-    
 
-    <script>
-        const params = new URLSearchParams(window.location.search);
-        const erro = params.get('erro');
-        const erroMsg = document.getElementById('erro-msg');
-    
-        if (erro) {
-            let msg = '';
-            switch (erro) {
-                case 'senha':
-                    msg = 'Senha incorreta.';
-                    break;
-                case 'email':
-                    msg = 'Email não encontrado.';
-                    break;
-                case 'vazio':
-                    msg = 'Por favor, preencha todos os campos.';
-                    break;
-            }
-            erroMsg.innerText = msg;
-            erroMsg.style.display = 'block';
-        }
-    </script>
+<body class="min-h-screen bg-gradient-to-br from-orange-300 to-orange-500 flex items-center justify-center px-4 relative">
+  <nav class="absolute top-5 left-5 sm:left-10">
+    <a href="/index.html" class="text-white text-2xl sm:text-3xl font-extrabold">Othrys<span style="color: #ea580c">Fit.</span></a>
+  </nav>
+
+  <div class="bg-white p-8 sm:p-10 rounded-xl shadow-2xl w-full max-w-md text-center">
+    <h2 class="text-2xl font-semibold mb-6">Login</h2>
+
+    <div id="erro-msg" class="hidden mb-4 p-3 bg-red-100 text-red-700 border border-red-300 rounded text-sm"></div>
+
+    <form action="../../src/php/login.php" method="post" class="space-y-4">
+      <div>
+        <input type="email" name="email" placeholder="Email" required
+               class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-orange-400 transition duration-200 text-sm sm:text-base">
+      </div>
+      <div>
+        <input type="password" name="password" placeholder="Senha" required
+               class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-orange-400 transition duration-200 text-sm sm:text-base">
+      </div>
+      <button type="submit"
+              class="w-full bg-orange-400 text-white py-3 rounded hover:bg-orange-600 transition duration-200 font-medium">
+        Entrar
+      </button>
+    </form>
+
+    <div class="flex flex-col sm:flex-row justify-between mt-4 text-sm sm:text-base gap-2 sm:gap-0">
+      <a href="../html/replacement.html" class="text-black hover:text-orange-600">Esqueceu a senha?</a>
+      <a href="../html/register.html" class="text-black hover:text-orange-600">Registar-se</a>
+    </div>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const erro = params.get('erro');
+    const erroMsg = document.getElementById('erro-msg');
+
+    if (erro) {
+      let msg = '';
+      switch (erro) {
+        case 'senha':
+          msg = 'Senha incorreta.';
+          break;
+        case 'email':
+          msg = 'Email não encontrado.';
+          break;
+        case 'vazio':
+          msg = 'Por favor, preencha todos os campos.';
+          break;
+      }
+      erroMsg.innerText = msg;
+      erroMsg.classList.remove('hidden');
+    }
+  </script>
 </body>
 </html>
