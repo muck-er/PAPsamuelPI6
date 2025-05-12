@@ -2,16 +2,14 @@
 <html lang="pt">
 <head>
   <meta charset="UTF-8">
-  <title>Dashboard OthrysFit</title>
-  <link rel="icon" href="/public/images/OthrysFit.ico" type="image/x-icon" />
+  <title>OthrysFit - Dashboard</title>
+  <link rel="icon" href="../images/OthrysFit.ico" type="image/x-icon" />
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-orange-200 min-h-screen font-sans">
 
   <div class="container mx-auto px-4 py-10">
     <h2 class="text-2xl md:text-3xl font-semibold text-gray-800 mb-6">Olá, bem-vindo à tua dashboard</h2>
-
-    <!-- Plano de Treino -->
     <div class="bg-white shadow-lg rounded-xl mb-6 animate-fadeIn">
       <div class="bg-orange-600 text-white text-lg font-semibold rounded-t-xl px-4 py-3">Plano de Treino</div>
       <div class="p-4 overflow-x-auto">
@@ -27,8 +25,6 @@
         </table>
       </div>
     </div>
-
-    <!-- Objetivos -->
     <div class="bg-white shadow-lg rounded-xl animate-fadeIn">
       <div class="bg-green-600 text-white text-lg font-semibold rounded-t-xl px-4 py-3">Objetivos</div>
       <div class="p-4">
@@ -39,14 +35,12 @@
 
   <script>
     function carregarDashboard() {
-  fetch('dashboard.php')
+  fetch('../../src/php/dashboard.php')
     .then(res => res.json())
     .then(data => {
-      // Atualiza a saudação com o nome do utilizador
       const titulo = document.getElementById("boas-vindas");
       titulo.textContent = `Olá, ${data.nome}! Bem-vindo à tua dashboard`;
 
-      // Preenche plano de treino
       const treinoTable = document.getElementById("tabela-treinos");
       treinoTable.innerHTML = "";
       data.treinos.forEach(item => {
@@ -59,7 +53,6 @@
           </tr>`;
       });
 
-      // Preenche objetivos
       const objetivosList = document.getElementById("lista-objetivos");
       objetivosList.innerHTML = "";
       data.objetivos.forEach(obj => {
