@@ -157,7 +157,7 @@ $database = "othrysfit";
 | Tipo de Utilizador | Email / Utilizador | Senha       |
 |--------------------|--------------------|-------------|
 | Administrador      | admin@example.com  | admin123    |
-| Utilizador         | user@example.com   | user123     |
+| Utilizador         | user@example.com   | user1234    |
 
 ---
 
@@ -170,7 +170,7 @@ $database = "othrysfit";
 
 ## 📄 Licença
 
-Este projeto é de código aberto e está licenciado sob a [MIT License](LICENSE).
+Este projeto é Open Source e está licenciado sob a [MIT License](LICENSE).
 
 ---
 
