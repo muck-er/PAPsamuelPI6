@@ -8,10 +8,9 @@
 
 - Registo e login de utilizadores
 - Inserção de dados pessoais (peso, altura, idade, etc.)
-- Definição e acompanhamento de objetivos
-- Atribuição de planos de treino personalizados
-- Interface privada entre personal trainer e utilizador (chat/fórum)
-- Dashboards separadas para Administrador, Personal Trainer e Utilizador
+- Definição de objetivos
+- Atribuição de planos de treino
+- Dashboards separadas para Administrador e Utilizador
 - Design moderno com Tailwind CSS
 - Suporte a modo escuro
 
@@ -164,8 +163,8 @@ $database = "othrysfit";
 
 ## 🧑‍💻 Equipa de Desenvolvimento
 
-- Desenvolvido por: [Nome ou Equipa do Projeto]
-- Contacto: [teuemail@exemplo.com]
+- Desenvolvido por: [Muck-Er]
+- Contacto: [stemspam530@gmail.com]
 
 ---
 
