@@ -158,7 +158,6 @@ $database = "othrysfit";
 | Tipo de Utilizador | Email / Utilizador | Senha       |
 |--------------------|--------------------|-------------|
 | Administrador      | admin@example.com  | admin123    |
-| Personal Trainer   | pt@example.com     | pt123       |
 | Utilizador         | user@example.com   | user123     |
 
 ---
