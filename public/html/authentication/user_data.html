@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Formulário de Dados</title>
+    <link rel="icon" href="../../images/OthrysFit.ico" type="image/x-icon" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+      }
+      .fade-in {
+        animation: fadeIn 1s ease-in-out;
+      }
+      .slide-up {
+        animation: slideUp 0.8s ease forwards;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      @keyframes slideUp {
+        from {
+          opacity: 0;
+          transform: translateY(40px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+  <body
+    class="bg-gradient-to-br from-orange-300 to-orange-500 min-h-screen flex items-center justify-center fade-in px-4"
+  >
+    <div
+      class="bg-white p-6 sm:p-8 rounded-2xl shadow-2xl w-full max-w-md slide-up"
+    >
+      <h1
+        class="text-xl sm:text-2xl font-semibold text-center mb-6 text-gray-800"
+      >
+        Dados de Utilizador
+      </h1>
+
+      <form id="userForm" class="space-y-4" aria-label="Formulário de Dados">
+        <div>
+          <label
+            for="nome"
+            class="block text-sm sm:text-base font-semibold text-gray-700"
+            >Nome</label
+          >
+          <input
+            type="text"
+            id="nome"
+            name="nome"
+            required
+            autocomplete="name"
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-400 focus:outline-none"
+          />
+        </div>
+
+        <div>
+          <label
+            for="peso"
+            class="block text-sm sm:text-base font-semibold text-gray-700"
+            >Peso (kg)</label
+          >
+          <input
+            type="number"
+            id="peso"
+            name="peso"
+            required
+            step="0.1"
+            min="30"
+            max="300"
+            inputmode="decimal"
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-400 focus:outline-none"
+          />
+        </div>
+
+        <div>
+          <label
+            for="altura"
+            class="block text-sm sm:text-base font-semibold text-gray-700"
+            >Altura (cm)</label
+          >
+          <input
+            type="number"
+            id="altura"
+            name="altura"
+            required
+            min="100"
+            max="250"
+            inputmode="numeric"
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-400 focus:outline-none"
+          />
+        </div>
+
+        <div>
+          <label
+            for="idade"
+            class="block text-sm sm:text-base font-semibold text-gray-700"
+            >Idade</label
+          >
+          <input
+            type="number"
+            id="idade"
+            name="idade"
+            required
+            min="10"
+            max="100"
+            inputmode="numeric"
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-400 focus:outline-none"
+          />
+        </div>
+
+        <div>
+          <label
+            for="contacto"
+            class="block text-sm sm:text-base font-semibold text-gray-700"
+            >Contacto</label
+          >
+          <input
+            type="tel"
+            id="contacto"
+            name="contacto"
+            required
+            pattern="\d{9,15}"
+            inputmode="tel"
+            autocomplete="tel"
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-400 focus:outline-none"
+          />
+        </div>
+
+        <div>
+          <label
+            for="objetivo"
+            class="block text-sm sm:text-base font-semibold text-gray-700"
+            >Objetivo</label
+          >
+          <select
+            id="objetivo"
+            name="objetivo"
+            required
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-orange-400 focus:outline-none"
+          >
+            <option value="" disabled selected hidden>
+              Defina o seu objetivo
+            </option>
+            <option value="perda_peso">Perda de Peso</option>
+            <option value="ganho_massa">Ganho de Massa Muscular</option>
+          </select>
+        </div>
+
+        <button
+          type="submit"
+          class="w-full bg-orange-500 hover:bg-orange-600 text-white py-3 rounded-lg font-semibold transition duration-200"
+        >
+          Enviar
+        </button>
+      </form>
+    </div>
+
+    <script>
+      document
+        .getElementById("userForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          const formData = new FormData(this);
+
+          fetch("/src/php/save_user_data.php", {
+            method: "POST",
+            body: formData,
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              if (data.status === "success") {
+                window.location.href = "../dashboard/dashboard.html";
+              } else {
+                alert(data.message || "Erro ao guardar os dados.");
+              }
+            })
+            .catch((error) => {
+              console.error("Erro ao enviar formulário:", error);
+              alert("Ocorreu um erro. Tente novamente.");
+            });
+        });
+    </script>
+  </body>
+</html>

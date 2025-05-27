@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <title>OthrysFit - Objetivos</title>
+    <link rel="icon" href="../../images/OthrysFit.ico" type="image/x-icon" />
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-orange-200 min-h-screen font-sans flex">
+    <aside class="w-64 bg-white shadow-xl h-screen p-6 hidden md:flex flex-col">
+      <div
+        class="text-3xl font-extrabold text-orange-600 mb-12 flex items-center space-x-3"
+      >
+        <img src="../../images/OthrysFit.ico" alt="Logo" class="w-8 h-8" />
+        <span>OthrysFit</span>
+      </div>
+
+      <nav class="flex flex-col gap-6 text-gray-700 text-lg font-semibold">
+        <a
+          href="dashboard.html"
+          class="flex items-center gap-3 hover:text-orange-600 transition"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M3 12l2-2m0 0l7-7 7 7M13 5v6h6"
+            />
+          </svg>
+          Início
+        </a>
+
+        <a
+          href="p_treino.html"
+          class="flex items-center gap-3 hover:text-orange-600 transition"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M6 9v6m12-6v6M2 12h20"
+            />
+          </svg>
+          Plano de Treino
+        </a>
+
+        <a
+          href="objectives.html"
+          class="flex items-center gap-3 hover:text-orange-600 transition"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <circle cx="12" cy="12" r="10" />
+            <circle cx="12" cy="12" r="6" />
+            <circle cx="12" cy="12" r="2" fill="currentColor" />
+          </svg>
+          Objetivos
+        </a>
+
+        <a
+          href="/src/php/logout.php"
+          class="mt-auto flex items-center gap-3 text-red-600 hover:text-red-700 transition font-bold"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M17 16l4-4m0 0l-4-4m4 4H7"
+            />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M7 8v8" />
+          </svg>
+          Sair
+        </a>
+      </nav>
+    </aside>
+
+    <main class="flex-1 p-6 md:p-10">
+      <h2 class="text-3xl font-semibold text-gray-800 mb-8">
+        Objetivos Semanais
+      </h2>
+      <div class="bg-white shadow-lg rounded-xl">
+        <div
+          class="bg-green-600 text-white text-lg font-semibold rounded-t-xl px-4 py-3"
+        >
+          Objetivos da Semana
+        </div>
+        <div class="p-4">
+          <ul id="lista-objetivos-semana" class="space-y-3"></ul>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const objetivosList = document.getElementById("lista-objetivos-semana");
+
+        function carregarObjetivos() {
+          fetch("/src/php/dashboard_data.php?acao=objetivos_semana")
+            .then((res) => res.json())
+            .then((data) => {
+              objetivosList.innerHTML = "";
+
+              data.objetivos.forEach((obj) => {
+                const li = document.createElement("li");
+                const className = obj.concluido
+                  ? "line-through text-gray-500"
+                  : "";
+                const badgeColor = obj.concluido
+                  ? "bg-green-500"
+                  : "bg-gray-500";
+                const estado = obj.concluido ? "Feito" : "Pendente";
+
+                li.className = `flex justify-between items-center p-3 border rounded-lg ${className}`;
+
+                li.innerHTML = `
+              <div class="flex items-center gap-3">
+                <input type="checkbox" class="objetivo-checkbox h-4 w-4" data-id="${
+                  obj.id
+                }" ${obj.concluido ? "checked" : ""}>
+                <span>${obj.descricao}</span>
+              </div>
+              <span class="text-white text-xs font-semibold px-2 py-1 rounded-full ${badgeColor}">${estado}</span>
+            `;
+
+                objetivosList.appendChild(li);
+              });
+
+              document.querySelectorAll(".objetivo-checkbox").forEach((cb) => {
+                cb.addEventListener("change", function () {
+                  const id = parseInt(this.dataset.id);
+                  const concluido = this.checked ? 1 : 0;
+
+                  fetch("/src/php/update_objective.php", {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ id, concluido }),
+                  })
+                    .then((res) => res.json())
+                    .then((resp) => {
+                      if (resp.success) {
+                        carregarObjetivos();
+                      } else {
+                        alert("Erro ao atualizar objetivo.");
+                      }
+                    });
+                });
+              });
+            })
+            .catch((error) => {
+              console.error("Erro ao carregar objetivos:", error);
+            });
+        }
+
+        carregarObjetivos();
+      });
+    </script>
+  </body>
+</html>

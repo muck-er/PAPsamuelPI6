@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <title>OthrysFit - Dashboard</title>
+    <link rel="icon" href="../../images/OthrysFit.ico" type="image/x-icon" />
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body
+    class="bg-gradient-to-b from-orange-50 to-orange-200 min-h-screen font-sans flex"
+  >
+    <aside class="w-64 bg-white shadow-xl h-screen p-6 hidden md:flex flex-col">
+      <div
+        class="text-3xl font-extrabold text-orange-600 mb-12 flex items-center space-x-3"
+      >
+        <img src="../../images/OthrysFit.ico" alt="Logo" class="w-8 h-8" />
+        <span>OthrysFit</span>
+      </div>
+
+      <nav class="flex flex-col gap-6 text-gray-700 text-lg font-semibold">
+        <a
+          href="dashboard.html"
+          class="flex items-center gap-3 hover:text-orange-600 transition"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M3 12l2-2m0 0l7-7 7 7M13 5v6h6"
+            />
+          </svg>
+          Início
+        </a>
+
+        <a
+          href="p_treino.html"
+          class="flex items-center gap-3 hover:text-orange-600 transition"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M6 9v6m12-6v6M2 12h20"
+            />
+          </svg>
+          Plano de Treino
+        </a>
+
+        <a
+          href="objectives.html"
+          class="flex items-center gap-3 hover:text-orange-600 transition"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <circle cx="12" cy="12" r="10" />
+            <circle cx="12" cy="12" r="6" />
+            <circle cx="12" cy="12" r="2" fill="currentColor" />
+          </svg>
+          Objetivos
+        </a>
+
+        <a
+          href="/src/php/logout.php"
+          class="mt-auto flex items-center gap-3 text-red-600 hover:text-red-700 transition font-bold"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M17 16l4-4m0 0l-4-4m4 4H7"
+            />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M7 8v8" />
+          </svg>
+          Sair
+        </a>
+      </nav>
+    </aside>
+
+    <main class="flex-1 p-8 md:p-12 max-w-6xl mx-auto">
+      <section class="mb-10">
+        <h2 id="boas-vindas" class="text-4xl font-extrabold text-gray-900 mb-2">
+          Olá, bem-vindo ao teu painel
+        </h2>
+        <p id="frase-motivacional" class="text-xl italic text-orange-700"></p>
+      </section>
+
+      <section class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+        <div
+          class="bg-white rounded-2xl shadow-lg p-8 flex flex-col justify-center text-center"
+        >
+          <h3 class="text-2xl font-bold text-orange-600 mb-4">
+            Objetivo Atual
+          </h3>
+          <p id="objetivo" class="text-gray-800 text-lg tracking-wide"></p>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-lg p-8">
+          <h3 class="text-2xl font-bold text-green-600 mb-6">Resumo Semanal</h3>
+          <ul id="resumo-semanal" class="text-gray-700 text-lg space-y-3"></ul>
+          <div class="mt-8">
+            <h4 class="font-semibold text-gray-900 mb-3">
+              Progresso dos Objetivos Semanais
+            </h4>
+            <div
+              class="w-full bg-gray-200 rounded-full h-8 overflow-hidden shadow-inner"
+            >
+              <div
+                id="barra-progresso"
+                class="bg-green-500 h-8 text-white font-semibold flex items-center justify-center transition-all duration-700"
+                style="width: 0%"
+              >
+                0%
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      const frasesMotivacionais = [
+        "Cada treino é um passo mais perto da tua melhor versão.",
+        "A consistência supera a perfeição.",
+        "Hoje é o dia ideal para dares o teu melhor!",
+        "A força não vem do corpo, mas da vontade.",
+      ];
+
+      async function obterDadosAPI(acao) {
+        try {
+          const resposta = await fetch(
+            `/src/php/dashboard_data.php?acao=${acao}`,
+            {
+              credentials: "include",
+            }
+          );
+          if (!resposta.ok) throw new Error(`Erro: ${resposta.status}`);
+          return await resposta.json();
+        } catch (err) {
+          console.error(err);
+          return null;
+        }
+      }
+
+      async function carregarDashboard() {
+        document.getElementById("frase-motivacional").textContent =
+          frasesMotivacionais[
+            Math.floor(Math.random() * frasesMotivacionais.length)
+          ];
+
+        const treinoData = await obterDadosAPI("treino_dia");
+        if (!treinoData) return alert("Erro ao carregar dados do treino");
+
+        document.getElementById(
+          "boas-vindas"
+        ).textContent = `Olá, ${treinoData.nome}!`;
+        document.getElementById("objetivo").textContent =
+          treinoData.objetivo === "ganho_massa"
+            ? "Ganho de Massa Muscular"
+            : "Perda de Peso";
+
+        const objetivosData = await obterDadosAPI("objetivos_semana");
+        if (!objetivosData) return alert("Erro ao carregar objetivos semanais");
+
+        const ulResumo = document.getElementById("resumo-semanal");
+        ulResumo.innerHTML = "";
+
+        const total = objetivosData.objetivos.length;
+        const concluidos = objetivosData.objetivos.filter(
+          (o) => o.concluido
+        ).length;
+        const pendentes = total - concluidos;
+
+        ulResumo.innerHTML += `<li><strong>Total de objetivos:</strong> ${total}</li>`;
+        ulResumo.innerHTML += `<li><strong>Concluídos:</strong> ${concluidos}</li>`;
+        ulResumo.innerHTML += `<li><strong>Em progresso:</strong> ${pendentes}</li>`;
+
+        const barra = document.getElementById("barra-progresso");
+        const perc = total === 0 ? 0 : Math.round((concluidos / total) * 100);
+        barra.style.width = perc + "%";
+        barra.textContent = perc + "%";
+
+        const treinosSemanaData = await obterDadosAPI("treinos_semana");
+        if (!treinosSemanaData) return alert("Erro ao carregar treino semanal");
+
+        const dias = ["Seg", "Ter", "Qua", "Qui", "Sex", "Sáb", "Dom"];
+        const progressoPorDia = {
+          "Segunda-feira": 0,
+          "Terça-feira": 0,
+          "Quarta-feira": 0,
+          "Quinta-feira": 0,
+          "Sexta-feira": 0,
+          Sábado: 0,
+          Domingo: 0,
+        };
+
+        treinosSemanaData.treinos.forEach((treino) => {
+          if (progressoPorDia.hasOwnProperty(treino.dia)) {
+            progressoPorDia[treino.dia]++;
+          }
+        });
+
+        const maxExercicios = 4;
+        const mapping = {
+          Seg: "Segunda-feira",
+          Ter: "Terça-feira",
+          Qua: "Quarta-feira",
+          Qui: "Quinta-feira",
+          Sex: "Sexta-feira",
+          Sáb: "Sábado",
+          Dom: "Domingo",
+        };
+
+        const progressoPercentual = dias.map((d) => {
+          const count = progressoPorDia[mapping[d]] || 0;
+          return Math.min(
+            100,
+            Math.round((count / maxExercicios) * 100 * 0.75)
+          );
+        });
+
+        const barrasContainer = document.getElementById("barras");
+        barrasContainer.innerHTML = "";
+
+        progressoPercentual.forEach((val, i) => {
+          const barra = document.createElement("div");
+          barra.className =
+            "bg-green-500 rounded-t-xl w-6 transition-all duration-700";
+          barra.style.height = `${val}%`;
+
+          const container = document.createElement("div");
+          container.className = "flex flex-col items-center justify-end h-full";
+
+          container.appendChild(barra);
+          barrasContainer.appendChild(container);
+        });
+
+        const labelsContainer = document.getElementById("labels");
+        labelsContainer.innerHTML = "";
+
+        dias.forEach((dia) => {
+          const label = document.createElement("div");
+          label.className = "w-6 text-center";
+          label.textContent = dia;
+          labelsContainer.appendChild(label);
+        });
+      }
+
+      document.addEventListener("DOMContentLoaded", carregarDashboard);
+    </script>
+  </body>
+</html>
