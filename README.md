@@ -163,7 +163,7 @@ $database = "othrysfit";
 
 ## 🧑‍💻 Equipa de Desenvolvimento
 
-- Desenvolvido por: [Muck-Er]
+- Desenvolvido por: Muck-Er
 - Contacto: [stemspam530@gmail.com]
 
 ---
